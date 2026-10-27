@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandeep's Portfolio</title>
+    <!-- CSS folder ke andar se style.css ko link kiya -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="card">
+        <h1>Sandeep S.R</h1>
+        <div class="subtitle">AI & Full-Stack Developer Student</div>
+        <p>Yeh meri professional portfolio profile hai, jise maine proper folders ke sath code kiya hai!</p>
+        
+        <!-- Skills Section -->
+        <div class="skills-box">
+            <h3>My Skills:</h3>
+            <ul>
+                <li>HTML5 & CSS3 (Web Structure & Design)</li>
+                <li>JavaScript (Interactivity & Logic)</li>
+                <li>Git & GitHub (Version Control)</li>
+            </ul>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="projects-container">
+            <h3>Featured Projects:</h3>
+            
+            <div class="project-card">
+                <h4>1. Full-Stack Profile Website</h4>
+                <p>A modern responsive profile page built using structured folders.</p>
+            </div>
+
+            <div class="project-card">
+                <h4>2. AI Task Assistant (Upcoming)</h4>
+                <p>An interactive AI-powered web tool built using JavaScript and APIs.</p>
+            </div>
+        </div>
+
+        <!-- Naya Contact Form Section -->
+        <div class="contact-section">
+            <h3>Get in Touch:</h3>
+            <form onsubmit="submitForm(event)">
+                <input type="text" id="name" placeholder="Apna Naam Likho" required class="form-input">
+                <input type="email" id="email" placeholder="Apna Email Likho" required class="form-input">
+                <textarea id="message" placeholder="Apna Message Likho" rows="3" required class="form-input"></textarea>
+                <button type="submit" class="submit-btn">Send Message 🚀</button>
+            </form>
+        </div>
+
+        <!-- JavaScript Interactive Button -->
+        <div>
+            <button class="js-btn" onclick="greetSandeep()">Say Hello 👋</button>
+        </div>
+
+        <a href="https://github.com" class="profile-btn" target="_blank">Mera GitHub Dekho</a>
+    </div>
+
+    <!-- JS folder ke andar se script.js ko link kiya -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>
