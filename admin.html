@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandeep | Admin Messages Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #38bdf8;
+            text-align: center;
+        }
+        .message-card {
+            background-color: #1e293b;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #38bdf8;
+            position: relative;
+        }
+        .message-card h3 {
+            margin: 0 0 5px 0;
+            color: #e2e8f0;
+        }
+        .message-card p {
+            margin: 5px 0;
+            color: #94a3b8;
+        }
+        .time {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .delete-btn:hover {
+            background-color: #dc2626;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .back-btn:hover {
+            background-color: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Portfolio</a>
+        <h1>📬 Admin Messages Dashboard</h1>
+        <div id="messagesContainer">
+            <p>Loading messages from server...</p>
+        </div>
+    </div>
+
+    <script>
+        // Page khulte hi password poochna
+        const password = prompt("Admin password enter karo bhai:");
+
+        if (password === "Sandeep1836") { 
+            // Password sahi hai, toh messages fetch karo
+            fetchMessages();
+        } else {
+            alert("Galat password! Access denied.");
+            window.location.href = "index.html"; // Wapas portfolio par bhej dena
+        }
+
+        async function fetchMessages() {
+            const container = document.getElementById('messagesContainer');
+            try {
+                const response = await fetch('http://localhost:3001/api/messages');
+                const data = await response.json();
+
+                if (data.success && data.messages.length > 0) {
+                    container.innerHTML = '';
+                    
+                    const messages = data.messages;
+
+                    messages.slice().reverse().forEach((msg, revIndex) => {
+                        const originalIndex = messages.length - 1 - revIndex;
+
+                        const card = document.createElement('div');
+                        card.className = 'message-card';
+                        card.innerHTML = `
+                            <h3>${msg.name} (${msg.email})</h3>
+                            <p>${msg.message}</p>
+                            <div class="time">Received on: ${new Date(msg.time).toLocaleString()}</div>
+                            <button class="delete-btn" onclick="deleteMessage(${originalIndex})">Delete</button>
+                        `;
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = '<p>Abhi tak koi message nahi aaya hai bhai!</p>';
+                }
+            } catch (error) {
+                console.error("Error fetching messages:", error);
+                container.innerHTML = '<p style="color: red;">Server se connect nahi ho pa raha hai bhai! Check karo server chal raha hai ya nahi.</p>';
+            }
+        }
+
+        async function deleteMessage(index) {
+            if (confirm("Kya aap sach mein is message ko delete karna chahte hain?")) {
+                try {
+                    const response = await fetch(`http://localhost:3001/api/messages/${index}`, {
+                        method: 'DELETE'
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        fetchMessages();
+                    } else {
+                        alert("Delete karne mein error aayi hai!");
+                    }
+                } catch (error) {
+                    console.error("Error deleting message:", error);
+                    alert("Server error while deleting!");
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

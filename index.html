@@ -3,62 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandeep's Portfolio</title>
-    <!-- CSS folder ke andar se style.css ko link kiya -->
+    <title>Sandeep | Full-Stack & AI Developer</title>
+    <!-- CSS file linked from css folder -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div class="card">
-        <h1>Sandeep S.R</h1>
-        <div class="subtitle">AI & Full-Stack Developer Student</div>
-        <p>Yeh meri professional portfolio profile hai, jise maine proper folders ke sath code kiya hai!</p>
+    <div class="portfolio-container">
         
-        <!-- Skills Section -->
-        <div class="skills-box">
-            <h3>My Skills:</h3>
-            <ul>
-                <li>HTML5 & CSS3 (Web Structure & Design)</li>
-                <li>JavaScript (Interactivity & Logic)</li>
-                <li>Git & GitHub (Version Control)</li>
+        <!-- Header / Intro Section with Theme Toggle Button -->
+        <header class="header-section">
+            <button class="theme-toggle-btn" onclick="toggleTheme()">☀️ / 🌙</button>
+            <h1>Sandeep Kumar</h1>
+            <div class="subtitle">AI Developer Intern & Full-Stack Enthusiast</div>
+            <p>Building clean, scalable web applications and exploring the world of Artificial Intelligence and modern software development.</p>
+        </header>
+
+        <!-- About Me Section -->
+        <section class="section-box">
+            <h3>👨‍💻 About Me</h3>
+            <p>Hello! I am Sandeep, currently working as an AI developer intern. I am deeply passionate about full-stack web development, writing clean code, and building interactive user interfaces using modern technologies.</p>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section class="section-box">
+            <h3>🛠️ Technical Skills</h3>
+            <ul class="skills-list" id="skillsList">
+                <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
+                <li><strong>Version Control:</strong> Git & GitHub</li>
+                <li><strong>AI & Development:</strong> Python, VS Code, Web APIs</li>
             </ul>
-        </div>
+        </section>
 
-        <!-- Projects Section -->
-        <div class="projects-container">
-            <h3>Featured Projects:</h3>
+        <!-- Featured Projects Section using CSS Grid -->
+        <section class="section-box">
+            <h3>🚀 Featured Projects</h3>
             
-            <div class="project-card">
-                <h4>1. Full-Stack Profile Website</h4>
-                <p>A modern responsive profile page built using structured folders.</p>
-            </div>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <h4>Full-Stack Portfolio Website</h4>
+                    <p>A modern, fully responsive developer portfolio built using a clean modular folder structure (HTML, CSS, JS).</p>
+                </div>
 
-            <div class="project-card">
-                <h4>2. AI Task Assistant (Upcoming)</h4>
-                <p>An interactive AI-powered web tool built using JavaScript and APIs.</p>
+                <div class="project-item">
+                    <h4>AI Task Assistant</h4>
+                    <p>An interactive web tool integrating JavaScript logic and automation features.</p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Naya Contact Form Section -->
-        <div class="contact-section">
-            <h3>Get in Touch:</h3>
+        <!-- Interactive Contact / Message Section -->
+        <section class="section-box">
+            <h3>📬 Get in Touch</h3>
             <form onsubmit="submitForm(event)">
-                <input type="text" id="name" placeholder="Apna Naam Likho" required class="form-input">
-                <input type="email" id="email" placeholder="Apna Email Likho" required class="form-input">
-                <textarea id="message" placeholder="Apna Message Likho" rows="3" required class="form-input"></textarea>
+                <input type="text" id="name" placeholder="Your Name" required class="form-input">
+                <input type="email" id="email" placeholder="Your Email" required class="form-input">
+                <textarea id="message" placeholder="Your Message" rows="3" required class="form-input"></textarea>
                 <button type="submit" class="submit-btn">Send Message 🚀</button>
             </form>
-        </div>
+        </section>
 
-        <!-- JavaScript Interactive Button -->
-        <div>
+        <!-- Social / Buttons Footer using Flexbox -->
+        <div class="footer-links">
             <button class="js-btn" onclick="greetSandeep()">Say Hello 👋</button>
+            <button class="js-btn" onclick="addNewSkill()">Add Dynamic Skill ⚡</button>
+            <a href="https://github.com/sandeep121-tech" class="profile-btn" target="_blank">Visit My GitHub 🌐</a>
         </div>
 
-        <a href="https://github.com" class="profile-btn" target="_blank">Mera GitHub Dekho</a>
     </div>
 
-    <!-- JS folder ke andar se script.js ko link kiya -->
+    <!-- JavaScript file linked from js folder -->
     <script src="js/script.js"></script>
 
 </body>
