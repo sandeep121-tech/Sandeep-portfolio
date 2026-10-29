@@ -56,3 +56,4 @@ app.delete('/api/messages/:index', (req, res) => {
         return res.status(404).json({ success: false, message: 'Messages file not found!' });
     }
 });
+app.use(express.static(path.join(__dirname, '../')));
