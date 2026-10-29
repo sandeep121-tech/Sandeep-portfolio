@@ -9,11 +9,6 @@ const PORT = 3001;
 app.use(express.json());
 app.use(cors());
 
-// Test route
-app.get('/', (req, res) => {
-    res.send('Server is running! 🚀');
-});
-
 // Get all messages route
 app.get('/api/messages', (req, res) => {
     const filePath = path.join(__dirname, 'messages.json');
@@ -27,9 +22,6 @@ app.get('/api/messages', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
 // Delete a specific message by index
 app.delete('/api/messages/:index', (req, res) => {
     const messageIndex = parseInt(req.params.index);
@@ -56,4 +48,10 @@ app.delete('/api/messages/:index', (req, res) => {
         return res.status(404).json({ success: false, message: 'Messages file not found!' });
     }
 });
+
+// Serve static frontend files from root directory
 app.use(express.static(path.join(__dirname, '../')));
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
