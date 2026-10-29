@@ -95,7 +95,8 @@
         async function fetchMessages() {
             const container = document.getElementById('messagesContainer');
             try {
-                const response = await fetch('http://localhost:3001/api/messages');
+                // Relative path use kiya hai taaki live aur local dono par chale
+                const response = await fetch('/api/messages');
                 const data = await response.json();
 
                 if (data.success && data.messages.length > 0) {
@@ -111,7 +112,7 @@
                         card.innerHTML = `
                             <h3>${msg.name} (${msg.email})</h3>
                             <p>${msg.message}</p>
-                            <div class="time">Received on: ${new Date(msg.time).toLocaleString()}</div>
+                            <div class="time">Received on: ${new Date(msg.date || msg.time).toLocaleString()}</div>
                             <button class="delete-btn" onclick="deleteMessage(${originalIndex})">Delete</button>
                         `;
                         container.appendChild(card);
@@ -128,7 +129,7 @@
         async function deleteMessage(index) {
             if (confirm("Kya aap sach mein is message ko delete karna chahte hain?")) {
                 try {
-                    const response = await fetch(`http://localhost:3001/api/messages/${index}`, {
+                    const response = await fetch(`/api/messages/${index}`, {
                         method: 'DELETE'
                     });
                     const result = await response.json();
