@@ -1,6 +1,43 @@
+// Professional Toast Notification Helper Function
+function showNotification(message, type = 'success') {
+    const existingToast = document.getElementById('custom-toast');
+    if (existingToast) existingToast.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'custom-toast';
+    toast.innerText = message;
+    
+    // Modern styling for professional UI
+    toast.style.position = 'fixed';
+    toast.style.bottom = '25px';
+    toast.style.right = '25px';
+    toast.style.padding = '12px 20px';
+    toast.style.borderRadius = '8px';
+    toast.style.color = '#ffffff';
+    toast.style.fontWeight = '500';
+    toast.style.fontSize = '14px';
+    toast.style.zIndex = '10000';
+    toast.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3)';
+    toast.style.transition = 'all 0.3s ease-in-out';
+    
+    if (type === 'success') {
+        toast.style.backgroundColor = '#10B981'; // Professional green
+    } else {
+        toast.style.backgroundColor = '#EF4444'; // Professional red
+    }
+
+    document.body.appendChild(toast);
+
+    // Automatically remove toast after 3 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
 // Greet message function for Say Hello button
 function greetSandeep() {
-    alert("Bhai Sandeep, portfolio ab ekdam professional aur mast lag raha hai! 🚀");
+    showNotification("Hello! Welcome to Sandeep's  portfolio. 🚀", "success");
 }
 
 // Dynamic DOM manipulation function to add a new skill
@@ -10,9 +47,10 @@ function addNewSkill() {
     const newLi = document.createElement("li");
     newLi.innerHTML = "<strong>Full-Stack:</strong> Node.js & Express Backend Integration 🚀";
     
-    skillsList.appendChild(newLi);
-    
-    alert("Ek naya Full-Stack skill JavaScript DOM manipulation ke zariye add kar diya gaya hai!");
+    if (skillsList) {
+        skillsList.appendChild(newLi);
+        showNotification("New skill added dynamically via JavaScript DOM!", "success");
+    }
 }
 
 // Contact form submission handler with Loading State and Validation
@@ -35,8 +73,8 @@ async function submitForm(event) {
     const formData = { name, email, message };
 
     try {
-        // Backend server par data POST request se bhejna
-        const response = await fetch('http://localhost:3000/api/contact', {
+        // Relative path use kiya hai taaki localhost aur Render dono par chal sake
+        const response = await fetch('/api/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,15 +85,15 @@ async function submitForm(event) {
         const result = await response.json();
 
         if (result.success) {
-            alert(result.message);
+            showNotification(result.message || "Message sent successfully!", "success");
             event.target.reset(); // Form clear karna
         } else {
-            alert("Kuch gadbad ho gayi bhai!");
+            showNotification("Kuch gadbad ho gayi bhai! Please try again.", "error");
         }
 
     } catch (error) {
         console.error("Error:", error);
-        alert("Server se connection nahi ho pa raha hai! Check karo ki backend server chal raha hai ya nahi.");
+        showNotification("Server se connection establish nahi ho pa raha hai.", "error");
     } finally {
         // Button ko wapas normal state mein lana
         if (submitBtn) {
@@ -71,8 +109,8 @@ function toggleTheme() {
     body.classList.toggle('light-theme');
     
     if (body.classList.contains('light-theme')) {
-        console.log("Light Mode Activated ☀️");
+        showNotification("Light Mode Activated ☀️", "success");
     } else {
-        console.log("Dark Mode Activated 🌙");
+        showNotification("Dark Mode Activated 🌙", "success");
     }
 }
