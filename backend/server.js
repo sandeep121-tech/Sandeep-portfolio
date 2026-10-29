@@ -22,6 +22,30 @@ app.get('/api/messages', (req, res) => {
     }
 });
 
+// Save contact form message route
+app.post('/api/contact', (req, res) => {
+    const { name, email, message } = req.body;
+    const filePath = path.join(__dirname, 'messages.json');
+
+    if (!name || !email || !message) {
+        return res.status(400).json({ success: false, message: 'All fields are required!' });
+    }
+
+    let messages = [];
+    if (fs.existsSync(filePath)) {
+        const fileData = fs.readFileSync(filePath, 'utf8');
+        messages = fileData ? JSON.parse(fileData) : [];
+    }
+
+    const newMessage = { name, email, message, date: new Date().toISOString() };
+    messages.push(newMessage);
+
+    fs.writeFileSync(filePath, JSON.stringify(messages, null, 2));
+
+    console.log(`📩 New message saved from ${name}!`);
+    return res.json({ success: true, message: 'Message sent successfully! 🚀' });
+});
+
 // Delete a specific message by index
 app.delete('/api/messages/:index', (req, res) => {
     const messageIndex = parseInt(req.params.index);
